@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 class MainPageLocators():
     CATALOGE_LINK = (By.XPATH, '//*[@id="browse"]//ul//a')
     LOGIN_BTN = (By.CSS_SELECTOR, '#login_link')
+    TERN_BASKET_BTN = (By.XPATH, '(//a[@href="/ru/basket/"])[1]')
 
 
 class LoinPageLocators():
@@ -17,3 +18,10 @@ class LoinPageLocators():
 
 class BasePageLocators():
     USER_ICON = (By.CSS_SELECTOR, '.icon-user')
+
+
+class BasketPageLocators():
+    BASKET_BTN = (By.XPATH, '//div[@class="page-header action"]/h1')
+    BOOK_ADD_BTN = (By.XPATH, '(//*[@id="id_quantity"])[10]/following-sibling::button')
+    VIEW_BASKET_BTN = (By.XPATH, '(//a[@href="/ru/basket/"])[last()]')
+    COUNT_BOOKS = (By.XPATH, "(//input[@type='number'])[2]")

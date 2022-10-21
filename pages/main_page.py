@@ -13,4 +13,7 @@ class MainPage(BasePage):
     def go_to_login_page(self):
         self.browser.find_element(*MainPageLocators.LOGIN_BTN).click()
 
+    # переходит на страницу корзины
+    def go_to_basket(self):
+        self.browser.find_element(*MainPageLocators.TERN_BASKET_BTN).click()
 
