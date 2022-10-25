@@ -8,6 +8,7 @@ from selenium.webdriver.chrome.service import Service
 def browser():
     print('\nstart browser...')
     browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    browser.maximize_window()
     browser.implicitly_wait(10)  # ожидание загрузки страницы
     yield browser
     print('\nquit browser...')

@@ -67,5 +67,10 @@ def test_basket(browser):
     page.view_basket()
     # создает экземпляр страницы корзины
     page = BasketPage(browser, link)
-    # проверяет количество книг в корзине
+    # проверяет количество позиций книг в корзине
     page.count_books()
+    # проверяет количество единиц товара
+    page.amount_books()
+    # проверяет наименование товара
+    page.title_books()
+

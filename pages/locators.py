@@ -24,4 +24,6 @@ class BasketPageLocators():
     BASKET_BTN = (By.XPATH, '//div[@class="page-header action"]/h1')
     BOOK_ADD_BTN = (By.XPATH, '(//*[@id="id_quantity"])[10]/following-sibling::button')
     VIEW_BASKET_BTN = (By.XPATH, '(//a[@href="/ru/basket/"])[last()]')
-    COUNT_BOOKS = (By.XPATH, "(//input[@type='number'])[2]")
+    COUNT_BOOKS = (By.XPATH, "//input[@type='number']")
+    AMOUNT_BOOKS = (By.XPATH, "//input[@type='number']")
+    TITLE_BOOKS = (By.CSS_SELECTOR, '.col-sm-4 h3 a')

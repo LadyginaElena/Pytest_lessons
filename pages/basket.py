@@ -18,6 +18,17 @@ class BasketPage(BasePage):
 
     # сравнивает количество книг в корзине
     def count_books(self):
-       count = self.browser.find_element(*BasketPageLocators.COUNT_BOOKS)
-       count.text()
-       print(count)
+        count = self.browser.find_elements(*BasketPageLocators.COUNT_BOOKS)
+        assert len(count) == 1, 'Wrong count books'
+
+    # проверяет количество единиц товара
+    def amount_books(self):
+        amount = self.browser.find_element(*BasketPageLocators.AMOUNT_BOOKS).get_attribute('value')
+        print(f'Книг в корзине {amount}')
+        return amount
+        assert amount == 2, 'Wrong amount books'
+
+    # проверяет наименование товара
+    def title_books(self):
+        title_book = self.browser.find_element(*BasketPageLocators.TITLE_BOOKS)
+        assert title_book.text == 'Applied cryptography', 'Wrong title book'
