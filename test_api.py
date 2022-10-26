@@ -1,16 +1,21 @@
 import pytest
 import requests
+import time
 
 base_url = 'https://jsonplaceholder.typicode.com/'
 url = 'https://playground.learnqa.ru/api/'
 
 HTTP_code = 200
 
+
+@pytest.mark.skip
 def test_get_all_posts():
     response = requests.get(f'{base_url}posts')
     assert response.status_code == HTTP_code, 'Wrong status code'
     assert len(response.json()) == 100, 'actual length does not match to expected'
 
+
+@pytest.mark.skip
 def test_get_post1():
     response = requests.get(f'{base_url}posts/1')
     response_data = response.json()
@@ -19,11 +24,13 @@ def test_get_post1():
     for key in response_data.keys():
         assert key in expected_keys, 'Wrong keys'
 
+
+@pytest.mark.skip
 def test_post_in_posts():
     post_data = {
-              'id': 101,
-           'title': 'my title',
-            'body': 'my body'
+        'id': 101,
+        'title': 'my title',
+        'body': 'my body'
     }
     response = requests.post(f'{base_url}posts', data=post_data)
     assert response.status_code == 201, 'Wrong status code'
@@ -31,10 +38,69 @@ def test_post_in_posts():
     expected_title = 'my title'
     assert response_data['title'] == expected_title, 'Wrong title'
 
+
+@pytest.mark.skip
 def get_all_names():
     response = requests.get(f'{base_url}users/')
     response_data = response.json()
-    name_list =[]
+    name_list = []
     for i, name in enumerate(response_data):
-        name_list.append((i+1, response_data[i]['name']))
+        name_list.append((i + 1, response_data[i]['name']))
     return name_list
+
+
+@pytest.mark.skip
+@pytest.mark.parametrize('userid, expected_name', get_all_names())
+def test_get_all_users_name(userid, expected_name):
+    response = requests.get(f'{base_url}users/{userid}')
+    response_data = response.json()
+    assert response_data['name'] == expected_name, 'Wrong user name'
+
+
+def test_end_to_end():
+    new_user = {
+        'username': 'my user',
+        'firstName': 'MyFirstname',
+        'lastName': 'MyLastname',
+        'email': str(time.time()) + '@example.com',
+        'password': '12345'
+    }
+    response = requests.post(f'{url}user', data=new_user)
+    assert response.status_code == HTTP_code, 'Wrong status code'
+    response_data = response.json()
+    assert 'id' in response_data.keys()
+    user_id = response_data['id']
+
+    response = requests.get(f'{url}user/{user_id}')
+    assert response.status_code == HTTP_code, 'Wrong status code'
+
+    auth_data = {
+        'email': new_user['email'],
+        'password': '12345'
+    }
+    response = requests.post(f'{url}user/login', data=auth_data)
+    assert response.status_code == HTTP_code, 'Wrong status code'
+    token = response.headers['x-csrf-token']
+    auth_sid = response.cookies['auth_sid']
+    print(token, auth_sid)
+
+    new_user_update = {
+        'username': 'my_user_updated'
+    }
+    response = requests.put(f'{url}user/{user_id}',
+                            data=new_user_update,
+                            headers={'x-csrf-token': token},
+                            cookies={'auth_sid': auth_sid})
+    assert response.status_code == HTTP_code, 'Wrong status code'
+
+    response = requests.get(f'{url}user/{user_id}')
+    assert response.status_code == HTTP_code, 'Wrong status code'
+    response_data = response.json()
+    assert 'my_user_updated' in response_data.values()
+
+    response = requests.delete(f'{url}user/{user_id}',
+                               headers={'x-csrf-token': token},
+                               cookies={'auth_sid': auth_sid})
+
+    response = requests.get(f'{url}user/{user_id}')
+    assert response.status_code == 404, 'Wrong status code'
