@@ -9,7 +9,7 @@ try:
     browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     browser.get("http://suninjuly.github.io/get_attribute.html")
     chest = browser.find_element(By.CSS_SELECTOR, "[src*='.png']")
-    x = chest.get_attribute('valuex')
+    x = int(chest.get_attribute('valuex'))
 
     def calc(x):
         return str(math.log(abs(12 * math.sin(int(x)))))

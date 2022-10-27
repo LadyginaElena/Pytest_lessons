@@ -57,6 +57,7 @@ def test_get_all_users_name(userid, expected_name):
     assert response_data['name'] == expected_name, 'Wrong user name'
 
 
+@pytest.mark.skip
 def test_end_to_end():
     new_user = {
         'username': 'my user',
@@ -106,6 +107,7 @@ def test_end_to_end():
     assert response.status_code == 404, 'Wrong status code'
 
 
+@pytest.mark.skip
 def test_get_all_albums():
     response = requests.get(f'{base_url}albums')
     assert response.status_code == HTTP_code, 'Wrong status code'
@@ -113,9 +115,11 @@ def test_get_all_albums():
     response_data = response.json()
     print(response_data)
 
+
+@pytest.mark.skip
 def test_album_in_albums():
     album_data = {
-        'userId': 101,
+        'userId':'101',
         'id': '101',
         'title': 'my title'
     }
@@ -125,6 +129,8 @@ def test_album_in_albums():
     expected_title = 'my title'
     assert response_data['title'] == expected_title, 'Wrong title'
 
+
+@pytest.mark.skip
 def test_post_update_delete():
     post88_update = {
         'title': '88my title',
@@ -137,3 +143,59 @@ def test_post_update_delete():
 
     response = requests.get(f'{base_url}posts/88')
     print(response.json())
+
+
+# simple methods
+@pytest.mark.skip
+def test_method_any():
+    response = requests.get(f'{url}check_type')
+    assert response.status_code == HTTP_code, 'Wrong status code'
+    print(response.text)
+
+
+@pytest.mark.skip
+def test_return_status_code_500():
+    response = requests.get(f'{url}get_500')
+    assert response.status_code == 500, 'Wrong status code'
+
+
+@pytest.mark.skip
+@pytest.mark.xfail
+def test_return_status_code_303():
+    response = requests.get(f'{url}get_303')
+    assert response.status_code == 303, 'Wrong status code'
+
+
+@pytest.mark.skip
+def test_return_text():
+    response = requests.get(f'{url}get_text')
+    assert response.status_code == HTTP_code, 'Wrong status code'
+    response_data = response.text
+    print(response_data)
+
+
+@pytest.mark.skip
+@pytest.mark.xfail
+def test_return_200_for_post():
+    response = requests.get(f'{url}method_post_only')
+    assert response.status_code == 404, 'Wrong status code'
+    response = requests.post(f'{url}method_post_only')
+    assert response.status_code == 200, 'Wrong status code'
+
+
+@pytest.mark.skip
+def test_get_auth_cookie():
+    auth_cookie = {'login': 'secret_login', 'password':'secret_pass'}
+    response = requests.get(f'{url}get_auth_cookie', params=auth_cookie)
+    assert response.status_code == HTTP_code, 'Wrong status code'
+    response_data = response.text
+    print(response_data)
+
+
+@pytest.mark.skip
+def test_return_map_api():
+    response = requests.get(f'{url}map')
+    assert response.status_code == HTTP_code, 'Wrong status code'
+    response_data = response.text
+    print(response_data)
+
