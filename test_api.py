@@ -104,3 +104,36 @@ def test_end_to_end():
 
     response = requests.get(f'{url}user/{user_id}')
     assert response.status_code == 404, 'Wrong status code'
+
+
+def test_get_all_albums():
+    response = requests.get(f'{base_url}albums')
+    assert response.status_code == HTTP_code, 'Wrong status code'
+    assert len(response.json()) == 100, 'actual length does not match to expected'
+    response_data = response.json()
+    print(response_data)
+
+def test_album_in_albums():
+    album_data = {
+        'userId': 101,
+        'id': '101',
+        'title': 'my title'
+    }
+    response = requests.post(f'{base_url}albums', data=album_data)
+    assert response.status_code == 201, 'Wrong status code'
+    response_data = response.json()
+    expected_title = 'my title'
+    assert response_data['title'] == expected_title, 'Wrong title'
+
+def test_post_update_delete():
+    post88_update = {
+        'title': '88my title',
+        'body': '88my body'
+    }
+    response = requests.put(f'{base_url}posts/88', data=post88_update)
+    assert response.status_code == 200, 'Wrong status code'
+
+    response = requests.delete(f'{base_url}posts/88')
+
+    response = requests.get(f'{base_url}posts/88')
+    print(response.json())
