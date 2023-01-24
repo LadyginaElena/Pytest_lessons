@@ -14,11 +14,19 @@ class TestAbs:
         try:
             browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
             browser.get("http://suninjuly.github.io/registration1.html")
-            first_name = browser.find_element(By.XPATH, "//label[contains(text(),'First name*')]/following-sibling::input")
-            last_name = browser.find_element(By.XPATH, "//label[contains(text(),'Last name*')]/following-sibling::input")
-            email = browser.find_element(By.XPATH, "//label[contains(text(),'Email*')]/following-sibling::input")
+            first_name = browser.find_element(
+                By.XPATH,
+                "//label[contains(text(),'First name*')]/following-sibling::input",
+            )
+            last_name = browser.find_element(
+                By.XPATH,
+                "//label[contains(text(),'Last name*')]/following-sibling::input",
+            )
+            email = browser.find_element(
+                By.XPATH, "//label[contains(text(),'Email*')]/following-sibling::input"
+            )
             letters = string.ascii_lowercase
-            random_word = ''.join(random.choice(letters) for _ in range(8))
+            random_word = "".join(random.choice(letters) for _ in range(8))
             for element in [first_name, last_name, email]:
                 element.send_keys(random_word)
 
@@ -26,7 +34,9 @@ class TestAbs:
             button.click()
             time.sleep(3)
             link_t = browser.find_element(By.TAG_NAME, "h1").text
-            assert link_t == "Congratulations! You have successfully registered!", "registration is failed"
+            assert (
+                link_t == "Congratulations! You have successfully registered!"
+            ), "registration is failed"
         finally:
             # успеваем скопировать код за 30 секунд
             time.sleep(3)
@@ -37,15 +47,23 @@ class TestAbs:
         try:
             browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
             browser.get("http://suninjuly.github.io/registration2.html")
-            first_name = browser.find_element(By.XPATH, "//label[contains(text(),'First name*')]/following-sibling::input")
+            first_name = browser.find_element(
+                By.XPATH,
+                "//label[contains(text(),'First name*')]/following-sibling::input",
+            )
 
             with pytest.raises(NoSuchElementException):
-                browser.find_element(By.XPATH, "//label[contains(text(),'Last name*')]/following-sibling::input")
+                browser.find_element(
+                    By.XPATH,
+                    "//label[contains(text(),'Last name*')]/following-sibling::input",
+                )
                 pytest.fail("Не должно быть поля last_name")
 
-            email = browser.find_element(By.XPATH, "//label[contains(text(),'Email*')]/following-sibling::input")
+            email = browser.find_element(
+                By.XPATH, "//label[contains(text(),'Email*')]/following-sibling::input"
+            )
             letters = string.ascii_lowercase
-            random_word = ''.join(random.choice(letters) for _ in range(8))
+            random_word = "".join(random.choice(letters) for _ in range(8))
             for element in [first_name, email]:
                 element.send_keys(random_word)
 
@@ -53,7 +71,9 @@ class TestAbs:
             button.click()
             time.sleep(3)
             link_t = browser.find_element(By.TAG_NAME, "h1").text
-            assert link_t == "Congratulations! You have successfully registered!", "registration is failed"
+            assert (
+                link_t == "Congratulations! You have successfully registered!"
+            ), "registration is failed"
 
         finally:
             # успеваем скопировать код за 30 секунд
