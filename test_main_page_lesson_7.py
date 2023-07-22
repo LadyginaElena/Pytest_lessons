@@ -6,8 +6,8 @@ from .pages.catalog_page import CatalogePage
 #
 # class TestMainPage():
 #
-#     @pytest.mark.open_page
-#     @pytest.mark.smoke
+#     @test.mark.open_page
+#     @test.mark.smoke
 
 def test_guest_can_go_to_catalog(browser):
     link = 'https://selenium1py.pythonanywhere.com/ru/'
