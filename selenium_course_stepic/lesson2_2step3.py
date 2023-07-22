@@ -10,10 +10,10 @@ try:
     browser.get("http://suninjuly.github.io/selects2.html")
     num1 = browser.find_element(By.ID, "num1")
     num1 = num1.text
-    num2 = browser.find_element(By.ID, 'num2')
+    num2 = browser.find_element(By.ID, "num2")
     num2 = num2.text
 
-    sum = int(num1)+int(num2)
+    sum = int(num1) + int(num2)
 
     select = Select(browser.find_element(By.TAG_NAME, "select"))
     # select.select_by_value(str(sum))

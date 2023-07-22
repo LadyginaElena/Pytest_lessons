@@ -11,7 +11,7 @@ try:
     browser.get("http://suninjuly.github.io/huge_form.html")
     elements = browser.find_elements(By.CSS_SELECTOR, "[type='text']")
     letters = string.ascii_lowercase
-    random_word = ''.join(random.choice(letters) for _ in range(8))
+    random_word = "".join(random.choice(letters) for _ in range(8))
     for element in elements:
         element.send_keys(random_word)
 

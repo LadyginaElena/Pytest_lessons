@@ -9,11 +9,17 @@ import string
 try:
     browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     browser.get("http://suninjuly.github.io/registration1.html")
-    first_name = browser.find_element(By.XPATH, "//label[contains(text(),'First name*')]/following-sibling::input")
-    last_name = browser.find_element(By.XPATH, "//label[contains(text(),'Last name*')]/following-sibling::input")
-    email = browser.find_element(By.XPATH, "//label[contains(text(),'Email*')]/following-sibling::input")
+    first_name = browser.find_element(
+        By.XPATH, "//label[contains(text(),'First name*')]/following-sibling::input"
+    )
+    last_name = browser.find_element(
+        By.XPATH, "//label[contains(text(),'Last name*')]/following-sibling::input"
+    )
+    email = browser.find_element(
+        By.XPATH, "//label[contains(text(),'Email*')]/following-sibling::input"
+    )
     letters = string.ascii_lowercase
-    random_word = ''.join(random.choice(letters) for _ in range(8))
+    random_word = "".join(random.choice(letters) for _ in range(8))
     for element in [first_name, last_name, email]:
         element.send_keys(random_word)
 

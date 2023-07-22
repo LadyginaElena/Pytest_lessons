@@ -16,8 +16,7 @@ try:
 
     y = calc(text_x)
 
-
-    answer = browser.find_element(By.ID, 'answer')
+    answer = browser.find_element(By.ID, "answer")
     answer.send_keys(y)
 
     checkbox = browser.find_element(By.CSS_SELECTOR, "[type='checkbox']").click()

@@ -14,12 +14,16 @@ try:
     last_name = browser.find_element(By.CSS_SELECTOR, "input[name='lastname']")
     email = browser.find_element(By.CSS_SELECTOR, "input[name='email']")
     letters = string.ascii_lowercase
-    random_word = ''.join(random.choice(letters) for _ in range(8))
+    random_word = "".join(random.choice(letters) for _ in range(8))
     for element in [first_name, last_name, email]:
         element.send_keys(random_word)
 
-    current_dir = os.path.abspath(os.path.dirname(__file__))  # получаем путь к директории текущего исполняемого файла
-    file_path = os.path.join(current_dir, 'file.txt')  # добавляем к этому пути имя файла
+    current_dir = os.path.abspath(
+        os.path.dirname(__file__)
+    )  # получаем путь к директории текущего исполняемого файла
+    file_path = os.path.join(
+        current_dir, "file.txt"
+    )  # добавляем к этому пути имя файла
     element = browser.find_element(By.CSS_SELECTOR, 'input[name="file"]')
     element.send_keys(file_path)
 

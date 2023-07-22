@@ -20,7 +20,7 @@ try:
 
     y = calc(text_x)
 
-    answer = browser.find_element(By.ID, 'answer')
+    answer = browser.find_element(By.ID, "answer")
     answer.send_keys(y)
 
     button = browser.find_element(By.CSS_SELECTOR, "button.btn")
